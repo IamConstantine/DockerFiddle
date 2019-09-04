@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  postgres_db:
+   image: postgres
+   restart: always
+   environment:
+     POSTGRES_DB: simple_db
+     POSTGRES_USER: simple_user
+     POSTGRES_PASSWORD: simple_pass
+   ports:
+     - '5432:5432'
