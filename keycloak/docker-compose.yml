@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      keycloak-network:
+  keycloak:
+    image: jboss/keycloak
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin@123
+      DB_ADDR: postgres
+      DB_USER: keycloak
+      DB_PASSWORD: password
+    ports:
+      - '8080:8080'
+      - '9990:9990' 
+    volumes:
+      - ./keycloak_data:/tmp
+    networks:
+       keycloak-network:
+networks:
+  keycloak-network:
